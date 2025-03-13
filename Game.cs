@@ -21,12 +21,16 @@ namespace DungeonExplorer
 
             // Initialize player and room
             player = new Player(playerName);
-            currentRoom = new Room("A dark, eerie dungeon chamber. There’s an old key on the ground.", "Old Key");
+            currentRoom = new Room("Dungeon Entrance", "A dark, eerie dungeon chamber. There’s an old key on the ground.", "Old Key");
         }
 
         public void Start()
         {
-            bool playing = true; // Game loop control variable
+            Console.WriteLine("Welcome to Dungeon Explorer!");
+            Console.WriteLine("Objective: Find the Old Key and make your way out of the dungeon!");
+            bool playing = true;
+
+            // Game loop
             while (playing)
             {
                 // Display available actions to the player
@@ -39,12 +43,19 @@ namespace DungeonExplorer
 
                 string choice = Console.ReadLine(); // Get player input
 
-                
+                // Validate input
+                if (string.IsNullOrWhiteSpace(choice))
+                {
+                    Console.WriteLine("Invalid input! Please enter a valid choice.");
+                    continue;
+                }
+
                 switch (choice)
                 {
                     case "1":
-                        
-                        Console.WriteLine($"Room: {currentRoom.GetDescription()}");
+                        // Show room name and description
+                        Console.WriteLine($"Room: {currentRoom.Name}");
+                        Console.WriteLine($"Description: {currentRoom.GetDescription()}");
                         break;
                     case "2":
                         // Attempt to pick up an item
@@ -59,16 +70,14 @@ namespace DungeonExplorer
                         }
                         break;
                     case "3":
-                       
+                        // Show player status
                         player.DisplayStatus();
                         break;
                     case "4":
-                     
                         Console.WriteLine("Exiting game...");
                         playing = false;
                         break;
                     default:
-                        // Handle invalid inputs
                         Console.WriteLine("Invalid choice! Try again.");
                         break;
                 }
